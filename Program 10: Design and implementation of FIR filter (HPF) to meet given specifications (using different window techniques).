@@ -1,0 +1,32 @@
+clc;
+close all
+clear all
+wp = input('Pass band edge freq:'); 
+ws = input('Stop band edge freq:'); 
+tw = wp-ws;             
+N = ceil(8*pi/tw);       
+wn = (hamming(N));  
+wc=wp+tw/2;
+B = fir1(N-1,wc/pi,'high',wn);  
+disp('Impulse response coeff=');    
+disp(B);
+alpha=(N-1)/2;
+for n=0:N-1
+    if(n~=alpha)
+hd(n+1)=sin(pi*(n-alpha))-sin(wc*(n-alpha))/(pi*(n-alpha));
+    else
+        hd(n+1)=(pi-wc)/pi;
+    end
+end
+for n=0:N-1
+    W(n+1)=0.54-0.46*cos((2*pi*n)/(N-1));
+end
+h=hd.*W;
+ 
+[H,w] = freqz(h,1,256);      
+Mag = 20*log10(abs(H));     
+plot(w, Mag);           
+xlabel('Frequency in radians in terms of pi');
+ylabel('Gain in db');   
+Impulse Response Coeefs=
+-0.036,-0.051,0.088,0.056,-0.312,0.441,-.312,0.056,0.088,-0.051,-.036,……
