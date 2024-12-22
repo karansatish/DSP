@@ -1,0 +1,33 @@
+clc;
+clear all;
+numerator = [1]; % Numerator of H(z)
+denominator = [1 -0.9]; % Denominator of H(z)
+% Create a pole-zero plot
+figure;
+zplane(numerator, denominator);
+title('Pole-Zero Plot of H(z)');
+omega = linspace(-pi, pi, 1000); % Define frequency range
+H = exp(1j * omega) ./ (exp(1j * omega) - 0.9);% Calculate H(e^jw)
+magnitude_H = abs(H);% Magnitude response
+phase_H = angle(H);% Phase response
+% Plot Magnitude Response
+figure;
+plot(omega, magnitude_H);
+title('|H(e^{j\omega})|');
+xlabel('\omega');
+ylabel('|H(e^{j\omega})|');
+% Plot Phase Response
+figure;
+plot(omega, unwrap(phase_H));
+title('\angle H(e^{j\omega})');
+xlabel('\omega');
+ylabel('\angle H(e^{j\omega})');
+% Define the impulse response
+n = 0:50; % Time index
+h = (0.9 .^ n); % Impulse response
+% Plot impulse response
+figure;
+stem(n, h, 'filled');
+title('Impulse Response h(n)');
+xlabel('n');
+ylabel('h(n)');
