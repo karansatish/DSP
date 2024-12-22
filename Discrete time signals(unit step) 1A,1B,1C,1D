@@ -1,0 +1,57 @@
+//1a) Program To Generate Unit Sample Sequence
+clc;
+clear all;
+N =input('enter the value of time constant'); % Length of sequence
+n = -N/2:N/2; % Define the time index range
+x = (n == 0);% Create the unit sample sequence (impulse function)
+stem(n, x, 'filled');
+xlabel('n');
+ylabel('x[n]');
+title('Unit Sample Sequence');
+grid on;
+
+
+//1b) Program To Generate Unit Step Sequence
+N =input('enter the value of time constant'); % Length of sequence
+n = -N/2:N/2; % Define the time index range
+u = (n >= 0);% Create the unit step sequence
+stem(n, u, 'filled');
+xlabel('n');
+ylabel('u[n]');
+title('Unit Step Sequence');
+grid on;
+
+
+//1c) Program To Generate Exponential Sequence
+N =input('enter the value of time constant'); % Length of sequence
+n = 0:N-1; % Time index ranging from 0 to N-1
+A = input('enter the value of a Amplitude');
+a = input('enter the value of a Growth constant');
+b = input('enter the value of a Decay constant');
+% Define the exponential factor
+x = A * a.^n; % Growing signal
+y = A * -b.^n;% Decaying signal
+% Plot the generated exponential signals
+figure;
+subplot(2, 1, 1);
+plot(n, x);
+xlabel('Time');
+ylabel('Amplitude');
+title('Growing Exponential Signal');
+subplot(2, 1, 2);
+plot(n, y);
+xlabel('Time');
+ylabel('Amplitude');
+title('Decaying Exponential Signal');
+
+
+//1d) Program To Generate Random Sequence
+N =input('enter the value Length of the random sequence');
+x = rand(1, N); % Generates a 1xN array of random numbers between
+% 0 and 1
+figure
+stem(x, 'filled');
+title('Random Sequence');
+xlabel('Index'); 
+ylabel('x[n]');
+grid on;
