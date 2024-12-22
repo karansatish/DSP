@@ -1,0 +1,33 @@
+clc;
+clear all;
+close all;
+x = input('Enter the value of Signal Sequence x[n]');
+N = length(x); % Length of the sequence
+X = zeros(1, N);
+% Compute the N-point DFT
+for k = 0:N-1
+ sum = 0;
+ for n = 0:N-1
+ % Compute the DFT using the formula
+ sum = sum + x(n+1) * exp(-1j * 2 * pi * k * n / N);
+ end
+ X(k+1) = sum; % Store the result
+end
+% Compute magnitude and phase spectra
+magnitude_X = abs(X);
+phase_X = angle(X);
+% Plot the magnitude spectrum
+figure;
+subplot(2, 1, 1);
+stem(0:N-1, magnitude_X, 'filled');
+title('Magnitude Spectrum');
+xlabel('Frequency Index');
+ylabel('|X[k]|');
+grid on;
+% Plot the phase spectrum
+subplot(2, 1, 2);
+stem(0:N-1, unwrap(phase_X), 'filled');
+title('Phase Spectrum');
+xlabel('Frequency Index');
+ylabel('?X[k]');
+grid on;
