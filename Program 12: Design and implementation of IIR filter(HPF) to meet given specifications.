@@ -1,0 +1,27 @@
+fp=input('Enter the passband edge ='); 
+fs=input('Enter the stopband edge ='); 
+alphap=input('Enter the passband ripple ='); 
+alphas=input('Enter the stopband ripple ='); 
+fsamp=input('Enter the sampling frequency ='); 
+omp=fp*2*pi; 
+oms=fs*2*pi; 
+wp=omp/fsamp;
+ws=oms/fsamp;
+omp_wrp=2*tan(wp/2);
+oms_wrp=2*tan(ws/2);
+[n,wn]=buttord(omp_wrp,oms_wrp,alphap,alphas,'s') 
+[b,a]=butter(n,wn,'high','s') 
+[z,p,k]=tf2zp(b,a) 
+[b1,a1]=bilinear(b,a,1) 
+[h,omega]=freqz(b1,a1);
+mag=20*log10(abs(h));
+an=angle(h);
+subplot(2,1,1)
+grid on
+plot(omega/pi,mag)
+ylabel('gain in dB')
+xlabel('Normalized frequency')
+subplot(2,1,2)
+plot(omega/pi,an)
+ylabel('gain in dB')
+xlabel('Normalized frequency')
